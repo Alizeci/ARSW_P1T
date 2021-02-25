@@ -12,7 +12,6 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 /**
  * A Camel Application
  */
@@ -22,23 +21,34 @@ public class CovidAnalyzerTool {
     private TestReader testReader;
     private int amountOfFilesTotal;
     private AtomicInteger amountOfFilesProcessed;
+    private ArrayList<CovidAnalyzerThread> threads;
+    private static final int n = 5;
 
     public CovidAnalyzerTool() {
         resultAnalyzer = new ResultAnalyzer();
         testReader = new TestReader();
         amountOfFilesProcessed = new AtomicInteger();
+        threads = new ArrayList<>();
     }
 
     public void processResultData() {
         amountOfFilesProcessed.set(0);
         List<File> resultFiles = getResultFileList();
         amountOfFilesTotal = resultFiles.size();
-        for (File resultFile : resultFiles) {
-            List<Result> results = testReader.readResultsFromFile(resultFile);
-            for (Result result : results) {
-                resultAnalyzer.addResult(result);
+        
+        for (int i = 1; i < n + 1; i++) {
+        	int inicioSegmento = (resultFiles.size()/ n ) * (i - 1);
+        	int finSegmento;
+        	
+            if (n == i) {
+            	finSegmento = amountOfFilesTotal;
+            }else {
+            	finSegmento = resultFiles.size() / n * i;
             }
-            amountOfFilesProcessed.incrementAndGet();
+
+            CovidAnalyzerThread processingThread = new CovidAnalyzerThread(resultFiles.subList(inicioSegmento, finSegmento), resultAnalyzer, testReader, amountOfFilesProcessed);
+            threads.add(processingThread);
+            processingThread.start();     
         }
     }
 
