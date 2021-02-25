@@ -19,19 +19,15 @@ public class ResultAnalyzer {
         if (result.isResult()) {
             if (result.getTestSpecifity() > MIN_TEST_SPECIFY) {
                 this.positivePeople.add(result);
-                System.out.println("positiva");
-                //TestReporter.report(result, TestReporter.TRUE_POSITIVE);
+                TestReporter.report(result, TestReporter.TRUE_POSITIVE);
             } else {
-            	System.out.println("falso positivo");
-                //TestReporter.report(result, TestReporter.FALSE_POSITIVE);
+            	TestReporter.report(result, TestReporter.FALSE_POSITIVE);
             }
         } else {
             if (result.getTestSpecifity() > MIN_TEST_SPECIFY) {
-            	System.out.println("negativo");
-                //TestReporter.report(result, TestReporter.TRUE_NEGATIVE);
+            	TestReporter.report(result, TestReporter.TRUE_NEGATIVE);
             } else {
-            	System.out.println("falso negativo");
-                //TestReporter.report(result, TestReporter.FALSE_NEGATIVE);
+            	TestReporter.report(result, TestReporter.FALSE_NEGATIVE);
             }
         }
     }
