@@ -5,6 +5,7 @@ import eci.arsw.covidanalyzer.model.ResultType;
 import eci.arsw.covidanalyzer.service.ICovidAggregateService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,7 +23,7 @@ public class CovidAggregateController {
     public ResponseEntity addTruePositiveResult(Result result) {
         //TODO
         covidAggregateService.aggregateResult(result, ResultType.TRUE_POSITIVE);
-        return null;
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     //TODO: Implemente todos los metodos GET que hacen falta.
