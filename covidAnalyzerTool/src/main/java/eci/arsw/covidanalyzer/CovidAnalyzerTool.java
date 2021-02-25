@@ -74,7 +74,7 @@ public class CovidAnalyzerTool {
     public static void main(String... args) throws Exception {
         CovidAnalyzerTool covidAnalyzerTool = new CovidAnalyzerTool();
         covidAnalyzerTool.processResultData();
-        //Thread processingThread = new Thread(() -> covidAnalyzerTool.processResultData());
+        Thread processingThread = new Thread(() -> covidAnalyzerTool.processResultData());
         
         while (true) {
             Scanner scanner = new Scanner(System.in);

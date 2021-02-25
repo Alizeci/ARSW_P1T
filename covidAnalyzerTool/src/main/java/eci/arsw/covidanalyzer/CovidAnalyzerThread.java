@@ -24,18 +24,20 @@ public class CovidAnalyzerThread extends Thread{
     	amountOfFilesProcessed.set(0);
     	
 		 for (File resultFile : resultFiles) {
-			 while (isPaused()){
-				 try {
-					 wait();                                
-				 } catch (InterruptedException ex) {
-					 ex.printStackTrace();
-                 }
-         }
-		 List<Result> results = testReader.readResultsFromFile(resultFile);
-		 for (Result result : results) {
-		     resultAnalyzer.addResult(result);
-		 }
-		 amountOfFilesProcessed.incrementAndGet();
+			 synchronized(this) {
+				 while (isPaused()){
+					 try {
+						 wait();                                
+					 } catch (InterruptedException ex) {
+						 ex.printStackTrace();
+	                 }
+				 }
+			 }
+			 List<Result> results = testReader.readResultsFromFile(resultFile);
+			 for (Result result : results) {
+			     resultAnalyzer.addResult(result);
+			 }
+			 amountOfFilesProcessed.incrementAndGet();
 		 }
     }
 
