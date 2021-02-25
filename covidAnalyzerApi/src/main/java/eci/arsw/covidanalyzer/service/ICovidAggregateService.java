@@ -2,6 +2,7 @@ package eci.arsw.covidanalyzer.service;
 
 import eci.arsw.covidanalyzer.model.Result;
 import eci.arsw.covidanalyzer.model.ResultType;
+import eci.arsw.covidanalyzer.persistence.CovidPersistenceException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,15 +19,16 @@ public interface ICovidAggregateService {
      * @param type
      * @return
      */
-    void aggregateResult(Result result, ResultType type);
+    void aggregateResult(Result result, ResultType type) throws CovidPersistenceException;
 
     /**
      * Get all the results for the specified result type.
      *
      * @param type
      * @return
+     * @throws CovidPersistenceException 
      */
-    ArrayList<ResultType> getResult(ResultType type);
+    ArrayList<Result> getResult(ResultType type) throws CovidPersistenceException;
 
     /**
      * 
