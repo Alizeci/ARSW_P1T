@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +25,7 @@ public class CovidAggregateController {
     //TODO: Implemente todos los metodos POST que hacen falta.
 
     @RequestMapping(value = "/covid/result/true-positive", method = RequestMethod.POST)
-    public ResponseEntity<?> addTruePositiveResult(Result result) {
+    public ResponseEntity<?> addTruePositiveResult(@RequestBody Result result) {
         try {
 	        //registrar dato
         	covidAggregateService.aggregateResult(result, ResultType.TRUE_POSITIVE);
@@ -36,7 +37,7 @@ public class CovidAggregateController {
     }
     
     @RequestMapping(value = "/covid/result/true-negative", method = RequestMethod.POST)
-    public ResponseEntity<?> addTrueNegativeResult(Result result) {
+    public ResponseEntity<?> addTrueNegativeResult(@RequestBody Result result) {
         //TODO
         try {
 			covidAggregateService.aggregateResult(result, ResultType.TRUE_NEGATIVE);
@@ -48,7 +49,7 @@ public class CovidAggregateController {
     }
     
     @RequestMapping(value = "/covid/result/false-positive", method = RequestMethod.POST)
-    public ResponseEntity<?> addFalsePositiveResult(Result result) {
+    public ResponseEntity<?> addFalsePositiveResult(@RequestBody Result result) {
         //TODO
         try {
 			covidAggregateService.aggregateResult(result, ResultType.FALSE_POSITIVE);
@@ -60,7 +61,7 @@ public class CovidAggregateController {
     }
     
     @RequestMapping(value = "/covid/result/false-negative", method = RequestMethod.POST)
-    public ResponseEntity<?> addFalseNegativeResult(Result result) {
+    public ResponseEntity<?> addFalseNegativeResult(@RequestBody Result result) {
         //TODO
         try {
 			covidAggregateService.aggregateResult(result, ResultType.FALSE_NEGATIVE);
