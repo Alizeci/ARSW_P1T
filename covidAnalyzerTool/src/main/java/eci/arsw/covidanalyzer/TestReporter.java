@@ -3,8 +3,15 @@ package eci.arsw.covidanalyzer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.JSONObject;
 
 import java.util.logging.Level;
@@ -42,8 +49,10 @@ public class TestReporter {
         try {
             String jsonString = mapper.writeValueAsString(result);
             Unirest.post(SERVER_URL + complement)
+            		.header("accept", "application/json")
                     .body(jsonString)
                     .asString();
+            
         } catch (JsonProcessingException | UnirestException e) {
             Logger.getLogger(TestReporter.class.getName()).log(Level.SEVERE, "Unable to report covid test result", e);
         }
