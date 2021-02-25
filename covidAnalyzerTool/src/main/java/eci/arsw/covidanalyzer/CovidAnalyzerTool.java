@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 /**
  * A Camel Application
  */
@@ -72,18 +73,31 @@ public class CovidAnalyzerTool {
      */
     public static void main(String... args) throws Exception {
         CovidAnalyzerTool covidAnalyzerTool = new CovidAnalyzerTool();
-        Thread processingThread = new Thread(() -> covidAnalyzerTool.processResultData());
-        processingThread.start();
+        covidAnalyzerTool.processResultData();
+        //Thread processingThread = new Thread(() -> covidAnalyzerTool.processResultData());
+        
         while (true) {
             Scanner scanner = new Scanner(System.in);
             String line = scanner.nextLine();
             if (line.contains("exit"))
                 break;
-            String message = "Processed %d out of %d files.\nFound %d positive people:\n%s";
-            Set<Result> positivePeople = covidAnalyzerTool.getPositivePeople();
-            String affectedPeople = positivePeople.stream().map(Result::toString).reduce("", (s1, s2) -> s1 + "\n" + s2);
-            message = String.format(message, covidAnalyzerTool.amountOfFilesProcessed.get(), covidAnalyzerTool.amountOfFilesTotal, positivePeople.size(), affectedPeople);
-            System.out.println(message);
+            if(line.contains("")) {
+	            for (CovidAnalyzerThread h : covidAnalyzerTool.threads){
+		             if (h.isPaused()) {
+		                  System.out.println("... running Threads.");
+		                  h.setPause(false);
+		                  h.reactivate();
+		             }
+		             else {
+		                  h.setPause(true);
+		                  String message = "Processed %d out of %d files.\nFound %d positive people:\n%s";
+		                  Set<Result> positivePeople = covidAnalyzerTool.getPositivePeople();
+		                  String affectedPeople = positivePeople.stream().map(Result::toString).reduce("", (s1, s2) -> s1 + "\n" + s2);
+		                  message = String.format(message, covidAnalyzerTool.amountOfFilesProcessed.get(), covidAnalyzerTool.amountOfFilesTotal, positivePeople.size(), affectedPeople);
+		                  System.out.println(message);
+		             }
+                }
+            }
         }
     }
 
