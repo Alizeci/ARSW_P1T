@@ -32,7 +32,7 @@ public class CovidAggregateController {
 	        return new ResponseEntity<>(HttpStatus.CREATED);
 	    } catch (CovidPersistenceException ex) {
 	        Logger.getLogger(CovidAggregateController.class.getName()).log(Level.SEVERE, null, ex);
-	        return new ResponseEntity<>("No es posible agregar resultadp.",HttpStatus.FORBIDDEN);            
+	        return new ResponseEntity<>("No es posible agregar resultado.",HttpStatus.FORBIDDEN);            
 	    }
     }
     
@@ -44,7 +44,7 @@ public class CovidAggregateController {
 			 return new ResponseEntity<>(HttpStatus.CREATED);
 	    } catch (CovidPersistenceException ex) {
 	        Logger.getLogger(CovidAggregateController.class.getName()).log(Level.SEVERE, null, ex);
-	        return new ResponseEntity<>("No es posible agregar resultadp.",HttpStatus.FORBIDDEN);            
+	        return new ResponseEntity<>("No es posible agregar resultado.",HttpStatus.FORBIDDEN);            
 	    }
     }
     
@@ -56,7 +56,7 @@ public class CovidAggregateController {
 			 return new ResponseEntity<>(HttpStatus.CREATED);
 	    } catch (CovidPersistenceException ex) {
 	        Logger.getLogger(CovidAggregateController.class.getName()).log(Level.SEVERE, null, ex);
-	        return new ResponseEntity<>("No es posible agregar resultadp.",HttpStatus.FORBIDDEN);            
+	        return new ResponseEntity<>("No es posible agregar resultado.",HttpStatus.FORBIDDEN);            
 	    }
     }
     
@@ -68,7 +68,7 @@ public class CovidAggregateController {
 			 return new ResponseEntity<>(HttpStatus.CREATED);
 	    } catch (CovidPersistenceException ex) {
 	        Logger.getLogger(CovidAggregateController.class.getName()).log(Level.SEVERE, null, ex);
-	        return new ResponseEntity<>("No es posible agregar resultadp.",HttpStatus.FORBIDDEN);            
+	        return new ResponseEntity<>("No es posible agregar resultado.",HttpStatus.FORBIDDEN);            
 	    }
     }
 
